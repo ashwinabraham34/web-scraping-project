@@ -2,7 +2,7 @@
 
 #Imports & Dependencies
 from splinter import Browser
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 
 #Site Navigation
 executable_path = {"executable_path": "/Users/sharonsu/Downloads/chromedriver"}
@@ -58,7 +58,7 @@ def marsHem():
     hemispheres_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(hemispheres_url)
     html = browser.html
-    soup = BeautifulSoup(html, "html.parser")
+    soup = bs(html, "html.parser")
     mars_hemisphere = []
 
     products = soup.find("div", class_ = "result-list" )
@@ -71,7 +71,7 @@ def marsHem():
         image_link = "https://astrogeology.usgs.gov/" + end_link    
         browser.visit(image_link)
         html = browser.html
-        soup=BeautifulSoup(html, "html.parser")
+        soup=bs(html, "html.parser")
         downloads = soup.find("div", class_="downloads")
         image_url = downloads.find("a")["href"]
         mars_hemisphere.append({"title": title, "img_url": image_url})
